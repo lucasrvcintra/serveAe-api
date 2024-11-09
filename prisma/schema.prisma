@@ -13,6 +13,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Status {
+  PENDENTE
+  EM_PREPARO
+  ENTREGUE
+}
+
+enum Category {
+  PRATO_PRINCIPAL
+  ENTRADA
+  BEBIDA
+  SOBREMESA
+}
+
 model User {
   id      String  @id @default(uuid())
   name    String
@@ -28,7 +41,7 @@ model Product {
   id          String      @id @default(uuid())
   name        String
   price       Float
-  category    String
+  category    Category
   description String
   imageUrl    String
   OrderItem   OrderItem[]
@@ -39,7 +52,7 @@ model Product {
 model Order {
   id         String   @id @default(uuid())
   totalPrice Float
-  status     String
+  status     Status   @default(PENDENTE)
   createdAt  DateTime @default(now())
 
   userId    String
