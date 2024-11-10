@@ -7,6 +7,8 @@ router.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-router.post('/api/auth/register', usersController.createUser);
+router.post('/api/auth/register', (req, res) =>
+  usersController.createUser(req.body, res)
+);
 
 export { router };

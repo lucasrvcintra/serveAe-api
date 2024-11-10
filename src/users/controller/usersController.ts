@@ -1,14 +1,17 @@
-import { Request, Response } from 'express';
-import { create } from '../services/createUserService';
+import { Response } from 'express';
+import { makeCreateUserService } from '../services/factories/makeCreateUserService';
+import type { CreateUserDto } from '../dto/createUserDto';
+
+const createUserService = makeCreateUserService();
 
 export default {
-  async createUser(req: Request, res: Response) {
+  async createUser(request: CreateUserDto, response: Response) {
     try {
-      const userData = req.body;
-      const user = await create(userData);
-      res.status(201).json({ message: 'Usuário criado com sucesso', user });
+      const userData = request;
+      await createUserService.create(userData);
+      response.status(201).json({ message: 'Usuário criado com sucesso' });
     } catch (error) {
-      res.status(500).json({ message: 'Erro ao criar usuário' });
+      response.status(500).json('Erro ao criar usuário');
     }
   },
 };
