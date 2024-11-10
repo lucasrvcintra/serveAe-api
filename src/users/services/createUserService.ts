@@ -12,10 +12,6 @@ export class CreateUserService {
       throw new Error('Usuário já cadastrado');
     }
 
-    // if (!name || !email || !address || !phone) {
-    //   throw new Error('Campos obrigatórios não preenchidos');
-    // }
-
     const newUser = await this.userRepository.create({
       name,
       email,

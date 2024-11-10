@@ -9,8 +9,10 @@ export default {
   async createUser(request: CreateUserDto, response: Response) {
     try {
       const userData = CreateUserSchema.parse(request);
-      await createUserService.create(userData);
-      response.status(201).json({ message: 'Usuário criado com sucesso' });
+      const user = await createUserService.create(userData);
+      return response
+        .status(201)
+        .json({ user, message: 'Usuário cadastrado com sucesso' });
     } catch (error: any | z.ZodError) {
       if (error instanceof z.ZodError) {
         const errorMessages = error.errors.map((err) => err.message);
