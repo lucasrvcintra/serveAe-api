@@ -14,7 +14,7 @@ const getProductByIdService = makeGetProductByIdService();
 const updateProductService = makeUpdateProductService();
 const deleteProductService = makeDeleteProductService();
 
-export default {
+export default class ProductsController {
   async createProduct(request: CreateProductDto, response: Response) {
     try {
       const productData = CreateProductSchema.parse(request);
@@ -33,7 +33,7 @@ export default {
           .json({ message: error.message || 'Erro ao criar produto' });
       }
     }
-  },
+  }
 
   async getAllProducts(request: Request, response: Response) {
     try {
@@ -50,7 +50,7 @@ export default {
           .json({ message: error.message || 'Erro ao buscar produtos' });
       }
     }
-  },
+  }
 
   async getProductById(request: Request, response: Response) {
     try {
@@ -68,17 +68,12 @@ export default {
           .json({ message: error.message || 'Erro ao buscar produto' });
       }
     }
-  },
+  }
 
   async updateProduct(request: Request, response: Response) {
     try {
       const { id } = request.params;
       const productData = UpdateProductSchema.parse(request.body);
-
-      const verifyProduct = await getProductByIdService.findProductById(id);
-      if (!verifyProduct) {
-        return response.status(404).json({ message: 'Produto não encontrado' });
-      }
 
       const product = await updateProductService.updateProduct(id, productData);
       return response
@@ -95,18 +90,12 @@ export default {
           .json({ message: error.message || 'Erro ao atualizar produto' });
       }
     }
-  },
+  }
 
   async deleteProduct(request: Request, response: Response) {
     try {
       const { id } = request.params;
-
-      const verifyProduct = await getProductByIdService.findProductById(id);
-      if (!verifyProduct) {
-        return response.status(404).json({ message: 'Produto não encontrado' });
-      }
-
-      await deleteProductService.deleteProduct(id);
+      await deleteProductService.deleteProduct(id, response);
       return response
         .status(200)
         .json({ message: 'Produto excluído com sucesso' });
@@ -121,5 +110,5 @@ export default {
           .json({ message: error.message || 'Erro ao excluir produto' });
       }
     }
-  },
-};
+  }
+}

@@ -5,7 +5,7 @@ import { CreateUserDto, CreateUserSchema } from '../dto/createUserDto';
 
 const createUserService = makeCreateUserService();
 
-export default {
+export default class UsersController {
   async createUser(request: CreateUserDto, response: Response) {
     try {
       const userData = CreateUserSchema.parse(request);
@@ -24,5 +24,5 @@ export default {
           .json({ message: error.message || 'Erro ao criar usuário' });
       }
     }
-  },
-};
+  }
+}
