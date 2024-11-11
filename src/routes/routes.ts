@@ -28,4 +28,8 @@ router.put('/api/products/:id', async (req: Request, res: Response) => {
   await productsController.updateProduct(req, res);
 });
 
+router.delete('/api/products/:id', async (req: Request, res: Response) => {
+  await productsController.deleteProduct(req, res);
+});
+
 export { router };

@@ -28,4 +28,10 @@ export class PrismaProductRepository implements ProductRepository {
       },
     });
   }
+
+  async delete(id: string): Promise<Product | null> {
+    return this.prisma.product.delete({
+      where: { id },
+    });
+  }
 }
