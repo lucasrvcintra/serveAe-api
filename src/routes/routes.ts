@@ -24,4 +24,8 @@ router.post('/api/products', async (req: Request, res: Response) => {
   await productsController.createProduct(req.body, res);
 });
 
+router.put('/api/products/:id', async (req: Request, res: Response) => {
+  await productsController.updateProduct(req, res);
+});
+
 export { router };
