@@ -1,14 +1,17 @@
 import { Product } from '@prisma/client';
-import { CreateProductDto } from '../dto/createProductDto';
 import { ProductRepository } from '../repositories/productRepository';
+import { UpdateProductDto } from '../dto/updateProductDto';
 
-export class CreateProductService {
+export class UpdateProductService {
   constructor(private productRepository: ProductRepository) {}
 
-  async create(productData: CreateProductDto): Promise<Product> {
+  async updateProduct(
+    id: string,
+    productData: UpdateProductDto
+  ): Promise<Product> {
     const { name, description, price, imageUrl, category } = productData;
 
-    const product = await this.productRepository.create({
+    const product = await this.productRepository.update(id, {
       name,
       description,
       price,
