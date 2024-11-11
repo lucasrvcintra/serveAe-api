@@ -41,7 +41,7 @@ model Product {
   id          String      @id @default(uuid())
   name        String
   price       Float
-  category    Category
+  category    Category    @default(PRATO_PRINCIPAL)
   description String
   imageUrl    String
   OrderItem   OrderItem[]
@@ -55,9 +55,9 @@ model Order {
   status     Status   @default(PENDENTE)
   createdAt  DateTime @default(now())
 
-  userId    String
-  user      User        @relation(fields: [userId], references: [id])
-  OrderItem OrderItem[]
+  userId   String
+  products OrderItem[]
+  user     User        @relation(fields: [userId], references: [id])
 
   @@map("orders")
 }
@@ -66,8 +66,8 @@ model OrderItem {
   id       String @id @default(uuid())
   quantity Int
 
-  orderId   String
   productId String
+  orderId   String
   order     Order   @relation(fields: [orderId], references: [id])
   product   Product @relation(fields: [productId], references: [id])
 

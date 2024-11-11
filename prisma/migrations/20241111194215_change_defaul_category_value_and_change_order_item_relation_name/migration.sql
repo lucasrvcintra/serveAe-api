@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "products" ALTER COLUMN "category" SET DEFAULT 'PRATO_PRINCIPAL';
