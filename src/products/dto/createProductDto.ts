@@ -7,7 +7,7 @@ export enum Category {
   SOBREMESA = 'SOBREMESA',
 }
 
-export const createProductDto = z.object({
+export const CreateProductSchema = z.object({
   name: z.string().min(3, 'O nome deve ter no mínimo 3 caracteres'),
   price: z.number().gt(0, 'O preço deve ser maior que zero'),
   category: z.nativeEnum(Category),
@@ -15,4 +15,4 @@ export const createProductDto = z.object({
   imageUrl: z.string().url('URL da imagem deve ser válida'),
 });
 
-export type CreateProductDto = z.infer<typeof createProductDto>;
+export type CreateProductDto = z.infer<typeof CreateProductSchema>;
