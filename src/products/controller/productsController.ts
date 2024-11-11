@@ -50,8 +50,8 @@ export default {
   async getProductById(request: Request, response: Response) {
     try {
       const { id } = request.params;
-      const products = await getProductByIdService.findProductById(id);
-      return response.status(200).json({ products });
+      const product = await getProductByIdService.findProductById(id);
+      return response.status(200).json(product);
     } catch (error: any | z.ZodError) {
       if (error instanceof z.ZodError) {
         const errorMessages = error.errors.map((err) => err.message);
