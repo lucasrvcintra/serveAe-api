@@ -13,8 +13,13 @@ router.post('/api/auth/register', async (req: Request, res: Response) => {
 });
 
 router.get('/api/products', async (req: Request, res: Response) => {
-  await productsController.getProducts(req, res);
+  await productsController.getAllProducts(req, res);
 });
+
+router.get('/api/products/:id', async (req: Request, res: Response) => {
+  await productsController.getProductById(req, res);
+});
+
 router.post('/api/products', async (req: Request, res: Response) => {
   await productsController.createProduct(req.body, res);
 });
