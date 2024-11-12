@@ -1,11 +1,13 @@
 import { Router, Request, Response } from 'express';
 import UsersController from '../users/controller/usersController';
 import ProductsController from '../products/controller/productsController';
+import OrdersController from '../orders/controller/orderController';
 
 const router = Router();
 
 const usersController = new UsersController();
 const productsController = new ProductsController();
+const ordersController = new OrdersController();
 
 router.get('/', (req, res) => {
   res.send('Hello World!');
@@ -29,6 +31,10 @@ router.put('/api/products/:id', async (req: Request, res: Response) => {
 });
 router.delete('/api/products/:id', async (req: Request, res: Response) => {
   await productsController.deleteProduct(req, res);
+});
+
+router.post('/api/orders', async (req: Request, res: Response) => {
+  await ordersController.createOrder(req.body, res);
 });
 
 export { router };

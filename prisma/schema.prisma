@@ -44,7 +44,7 @@ model Product {
   category    Category    @default(PRATO_PRINCIPAL)
   description String
   imageUrl    String
-  OrderItem   OrderItem[]
+  orderItems  OrderItem[]
 
   @@map("products")
 }
@@ -55,9 +55,9 @@ model Order {
   status     Status   @default(PENDENTE)
   createdAt  DateTime @default(now())
 
-  userId   String
-  products OrderItem[]
-  user     User        @relation(fields: [userId], references: [id])
+  userId     String
+  user       User        @relation(fields: [userId], references: [id])
+  orderItems OrderItem[]
 
   @@map("orders")
 }
