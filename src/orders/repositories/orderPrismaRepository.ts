@@ -1,7 +1,14 @@
-import { PrismaClient, Order, Prisma } from '@prisma/client';
+import { PrismaClient, Order } from '@prisma/client';
 import { OrderRepository } from './orderRepository';
 import { CreateOrderDto } from '../dto/createOrderDto';
 
+type OrderWithoutUserId = Omit<Order, 'userId'> & {
+  orderItems: {
+    name: string;
+    price: number;
+    quantity: number;
+  }[];
+};
 export class OrderPrismaRepository implements OrderRepository {
   private prisma = new PrismaClient();
 
@@ -40,12 +47,35 @@ export class OrderPrismaRepository implements OrderRepository {
     });
   }
 
-  async findById(id: string): Promise<Order | null> {
-    return await this.prisma.order.findUnique({
+  async findById(id: string): Promise<OrderWithoutUserId | null> {
+    const order = await this.prisma.order.findUnique({
       where: { id },
       include: {
-        orderItems: true,
+        orderItems: {
+          select: {
+            product: {
+              select: { name: true, price: true },
+            },
+            quantity: true,
+          },
+        },
       },
     });
+
+    if (!order) return null;
+
+    const orderItems = order.orderItems.map((item) => ({
+      name: item.product.name,
+      price: item.product.price,
+      quantity: item.quantity,
+    }));
+
+    return {
+      id: order.id,
+      status: order.status,
+      createdAt: order.createdAt,
+      totalPrice: order.totalPrice,
+      orderItems,
+    };
   }
 }
