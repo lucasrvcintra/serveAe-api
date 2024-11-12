@@ -1,6 +1,7 @@
 import { User } from '@prisma/client';
 import { CreateUserDto } from '../dto/createUserDto';
 import { UserRepository } from '../repositories/userRepository';
+import { CustomError } from '../../middlewares/errorHandler';
 
 export class CreateUserService {
   constructor(private userRepository: UserRepository) {}
@@ -10,7 +11,10 @@ export class CreateUserService {
 
     const user = await this.userRepository.findByEmail(email);
     if (user) {
-      throw new Error('Usuário já cadastrado');
+      const error = new Error() as CustomError;
+      error.status = 409;
+      error.message = 'Já existe um usuário com esse email';
+      throw error;
     }
 
     const newUser = await this.userRepository.create({

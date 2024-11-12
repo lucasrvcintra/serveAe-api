@@ -36,5 +36,8 @@ router.delete('/api/products/:id', async (req: Request, res: Response) => {
 router.post('/api/orders', async (req: Request, res: Response) => {
   await ordersController.createOrder(req.body, res);
 });
+router.get('/api/orders/:id', async (req: Request, res: Response) => {
+  await ordersController.getOrderById(req, res);
+});
 
 export { router };

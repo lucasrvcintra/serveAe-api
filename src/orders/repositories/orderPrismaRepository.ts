@@ -39,4 +39,13 @@ export class OrderPrismaRepository implements OrderRepository {
       },
     });
   }
+
+  async findById(id: string): Promise<Order | null> {
+    return await this.prisma.order.findUnique({
+      where: { id },
+      include: {
+        orderItems: true,
+      },
+    });
+  }
 }

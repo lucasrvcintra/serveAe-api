@@ -2,6 +2,7 @@ import { Product } from '@prisma/client';
 import { ProductRepository } from '../repositories/productRepository';
 import { UpdateProductDto } from '../dto/updateProductDto';
 import { Response } from 'express';
+import { CustomError } from '../../middlewares/errorHandler';
 
 export class UpdateProductService {
   constructor(private productRepository: ProductRepository) {}
@@ -14,7 +15,10 @@ export class UpdateProductService {
 
     const verifyProduct = await this.productRepository.findById(id);
     if (!verifyProduct) {
-      throw new Error('Produto não encontrado');
+      const error = new Error() as CustomError;
+      error.status = 404;
+      error.message = 'Produto não encontrado';
+      throw error;
     }
 
     const product = await this.productRepository.update(id, {

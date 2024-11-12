@@ -1,5 +1,6 @@
 import { Product } from '@prisma/client';
 import { ProductRepository } from '../repositories/productRepository';
+import { CustomError } from '../../middlewares/errorHandler';
 
 export class GetProductByIdService {
   constructor(private productRepository: ProductRepository) {}
@@ -7,7 +8,10 @@ export class GetProductByIdService {
   async findProductById(id: string): Promise<Product | null> {
     const product = await this.productRepository.findById(id);
     if (!product) {
-      throw new Error('Produto não encontrado');
+      const error = new Error() as CustomError;
+      error.status = 404;
+      error.message = 'Produto não encontrado';
+      throw error;
     }
 
     return product;
