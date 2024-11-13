@@ -2,7 +2,6 @@ import { describe, it } from '@jest/globals';
 import { ProductPrismaRepository } from '../repositories/productPrismaRepository';
 import { GetProductByIdService } from './getProductByIdService';
 import { Response } from 'express';
-import { CustomError } from '../../middlewares/errorHandler';
 
 let getProductByIdService: GetProductByIdService;
 let productPrismaRepository: ProductPrismaRepository;
@@ -53,13 +52,9 @@ describe('GetProductByIdService', () => {
 
     productPrismaRepository.findById = jest.fn().mockResolvedValue(null);
 
-    const error = new Error() as CustomError;
-    error.status = 404;
-    error.message = 'Produto não encontrado';
-
     await expect(
       getProductByIdService.findProductById(product.id)
-    ).rejects.toThrow(error);
+    ).rejects.toThrow(new Error('Produto não encontrado'));
 
     expect(productPrismaRepository.findById).toHaveBeenCalledWith(product.id);
   });

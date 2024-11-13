@@ -2,7 +2,6 @@ import { describe, it } from '@jest/globals';
 import { CreateUserService } from '../services/createUserService';
 import { UserPrismaRepository } from '../repositories/userPrismaRepository';
 import { CreateUserDto } from '../dto/createUserDto';
-import { CustomError } from '../../middlewares/errorHandler';
 import { User } from '@prisma/client';
 
 let createUserService: CreateUserService;
@@ -50,11 +49,9 @@ describe('CreateUserService', () => {
       .fn()
       .mockResolvedValue({ user: { email: 'john@example.com' } });
 
-    const error = new Error() as CustomError;
-    error.status = 409;
-    error.message = 'Já existe um usuário com esse email';
-
-    await expect(createUserService.create(newUserData)).rejects.toThrow(error);
+    await expect(createUserService.create(newUserData)).rejects.toThrow(
+      new Error('Já existe um usuário com esse email')
+    );
 
     expect(userPrismaRepository.create).not.toHaveBeenCalled();
   });
