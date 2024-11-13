@@ -1,7 +1,7 @@
 import { Product } from '@prisma/client';
 import { ProductRepository } from '../repositories/productRepository';
 
-export class GetProductService {
+export class GetAllProductService {
   constructor(private productRepository: ProductRepository) {}
 
   async findAllProducts(): Promise<Product[]> {

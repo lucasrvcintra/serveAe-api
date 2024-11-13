@@ -1,9 +1,9 @@
-import { PrismaProductRepository } from '../../repositories/productPrismaRepository';
-import { GetProductService } from '../getAllProductService';
+import { ProductPrismaRepository } from '../../repositories/productPrismaRepository';
+import { GetAllProductService } from '../getAllProductService';
 
 export function makeGetAllProductsService() {
-  const productsRepository = new PrismaProductRepository();
-  const getAllProductsService = new GetProductService(productsRepository);
+  const productsRepository = new ProductPrismaRepository();
+  const getAllProductsService = new GetAllProductService(productsRepository);
 
   return getAllProductsService;
 }

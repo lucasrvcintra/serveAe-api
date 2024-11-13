@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export enum Category {
+enum Category {
   PRATO_PRINCIPAL = 'PRATO_PRINCIPAL',
   ENTRADA = 'ENTRADA',
   BEBIDA = 'BEBIDA',
