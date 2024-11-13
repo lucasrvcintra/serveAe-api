@@ -1,6 +1,8 @@
 import { describe, it } from '@jest/globals';
 import { CreateProductService } from './createProductService';
 import { ProductPrismaRepository } from '../repositories/productPrismaRepository';
+import { CreateProductDto } from '../dto/createProductDto';
+import { Product } from '@prisma/client';
 
 enum Category {
   ENTRADA = 'ENTRADA',
@@ -20,7 +22,7 @@ describe('CreateProductService', () => {
   });
 
   it('should create a new product', async () => {
-    const newProductData = {
+    const newProductData: CreateProductDto = {
       name: 'Product 1',
       description: 'Description 1',
       price: 10,
@@ -28,7 +30,7 @@ describe('CreateProductService', () => {
       category: Category.PRATO_PRINCIPAL,
     };
 
-    const newProduct = {
+    const newProduct: Product = {
       id: '37fd1baf-e41b-4cd6-87e7-1347f5db51cb',
       ...newProductData,
     };
