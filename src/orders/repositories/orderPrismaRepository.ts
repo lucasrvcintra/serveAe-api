@@ -80,7 +80,7 @@ export class OrderPrismaRepository implements OrderRepository {
   }
 
   async findAll(): Promise<Order[]> {
-    return this.prisma.order.findMany({
+    return await this.prisma.order.findMany({
       include: {
         orderItems: {
           select: {
