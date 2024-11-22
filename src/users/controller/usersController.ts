@@ -3,11 +3,9 @@ import { Request, Response } from 'express';
 import { makeCreateUserService } from '../services/factories/makeCreateUserService';
 import { CreateUserDto, CreateUserSchema } from '../dto/createUserDto';
 import { makeFindUserByEmailService } from '../services/factories/makeFindUserByEmailService';
-import { makeFindUserByIdService } from '../services/factories/makeFindUserByIdService';
 
 const createUserService = makeCreateUserService();
 const findUserByEmailService = makeFindUserByEmailService();
-const findUserByIdService = makeFindUserByIdService();
 
 export default class UsersController {
   async createUser(request: CreateUserDto, response: Response) {
@@ -34,24 +32,6 @@ export default class UsersController {
     try {
       const { email } = request.params;
       const user = await findUserByEmailService.findUserByEmail(email);
-      return response.status(200).json(user);
-    } catch (error: any | z.ZodError) {
-      if (error instanceof z.ZodError) {
-        const errorMessages = error.errors.map((err) => err.message);
-        response.status(400).json({ messages: errorMessages });
-      } else {
-        const status = error.status || 500;
-        response
-          .status(status)
-          .json({ message: error.message || 'Erro ao buscar usuário' });
-      }
-    }
-  }
-
-  async getUserById(request: Request, response: Response) {
-    try {
-      const { id } = request.params;
-      const user = await findUserByIdService.findUserById(id);
       return response.status(200).json(user);
     } catch (error: any | z.ZodError) {
       if (error instanceof z.ZodError) {
