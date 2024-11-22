@@ -1,11 +1,11 @@
 # serveAe-api
 # API de Gestão de Pedidos - Falaê
 
-Esta API foi desenvolvida como parte do desafio técnico para o processo seletivo de estágio na Falaê. Ela é responsável pela gestão de pedidos de um restaurante, permitindo a criação, visualização, edição e exclusão de clientes, produtos e pedidos. A API foi estruturada com foco em boas práticas de desenvolvimento, utilizando os conceitos da arquitetura **SOLID**, como **Responsabilidade Única** e **Inversão de Dependências**.
+Esta API foi desenvolvida como parte do desafio técnico para o processo seletivo de estágio na Falaê. Ela é responsável pela gestão de pedidos de um restaurante, permitindo a criação de clientes, CRUD completo de produtos e criação e visualização depedidos. A API foi estruturada com foco em boas práticas de desenvolvimento, utilizando os conceitos da arquitetura **SOLID**, como **Responsabilidade Única** e **Inversão de Dependências**.
 
 ## 🚀 Tecnologias Utilizadas
 
-- **Node.js com Express**: Framework minimalista para construir APIs em Node.js.
+- **Node.js com Express**: Framework para construir APIs em Node.js.
 - **Prisma**: ORM para interagir com o banco de dados PostgreSQL de forma eficiente e segura.
 - **PostgreSQL**: Banco de dados relacional utilizado para armazenar os dados da aplicação.
 - **Docker**: Utilizado para rodar o PostgreSQL em um contêiner, facilitando a configuração e a portabilidade do ambiente.
@@ -17,16 +17,16 @@ Esta API foi desenvolvida como parte do desafio técnico para o processo seletiv
 
 ### 1. Clonar o Repositório
     ```bash
-    git clone https://github.com/seu-usuario/nome-do-repositorio.git
-    cd nome-do-repositorio
+    git clone https://github.com/lucasrvcintra/serveAe-api.git
+    cd serveAe-api
 
-### 2. Configurar o Banco de Dados com Docker
-    ```bash
-    docker-compose up -d
-
-### 3. Instalar as Dependências
+### 2. Instalar as Dependências
     ```bash
     npm install
+
+### 3. Configurar o Banco de Dados com Docker
+    ```bash
+    docker-compose up -d
 
 ### 4. Rodar a API
     ```bash
