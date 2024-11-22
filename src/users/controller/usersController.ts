@@ -2,10 +2,10 @@ import { z } from 'zod';
 import { Request, Response } from 'express';
 import { makeCreateUserService } from '../services/factories/makeCreateUserService';
 import { CreateUserDto, CreateUserSchema } from '../dto/createUserDto';
-import { makeFindUserService } from '../services/factories/makeFindUserByEmailService';
+import { makeFindUserByEmailService } from '../services/factories/makeFindUserByEmailService';
 
 const createUserService = makeCreateUserService();
-const findUserByEmailService = makeFindUserService();
+const findUserByEmailService = makeFindUserByEmailService();
 
 export default class UsersController {
   async createUser(request: CreateUserDto, response: Response) {

@@ -7,7 +7,7 @@ let createUserService: FindUserByEmailService;
 let userPrismaRepository: UserPrismaRepository;
 
 jest.mock('../repositories/userPrismaRepository');
-describe('CreateUserService', () => {
+describe('FindUserByEmailService', () => {
   beforeEach(() => {
     userPrismaRepository = new UserPrismaRepository();
     createUserService = new FindUserByEmailService(userPrismaRepository);

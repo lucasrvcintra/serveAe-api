@@ -5,13 +5,13 @@ export class UserPrismaRepository implements UserRepository {
   private prisma = new PrismaClient();
 
   async findByEmail(email: string): Promise<User | null> {
-    return this.prisma.user.findUnique({
+    return await this.prisma.user.findUnique({
       where: { email },
     });
   }
 
   async create(user: User): Promise<User> {
-    return this.prisma.user.create({
+    return await this.prisma.user.create({
       data: user,
     });
   }
