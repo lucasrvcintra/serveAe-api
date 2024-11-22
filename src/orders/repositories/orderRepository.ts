@@ -16,4 +16,5 @@ type OrderWithoutUserId = {
 export interface OrderRepository {
   create(data: CreateOrderDto): Promise<Order>;
   findById(id: string): Promise<OrderWithoutUserId | null>;
+  findAll(): Promise<Order[]>;
 }

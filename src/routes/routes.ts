@@ -42,5 +42,8 @@ router.post('/api/orders', async (req: Request, res: Response) => {
 router.get('/api/orders/:id', async (req: Request, res: Response) => {
   await ordersController.getOrderById(req, res);
 });
+router.get('/api/orders', async (req: Request, res: Response) => {
+  await ordersController.getAllOrders(req, res);
+});
 
 export { router };
