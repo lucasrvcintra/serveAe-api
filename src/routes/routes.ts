@@ -19,6 +19,9 @@ router.post('/api/auth/register', async (req: Request, res: Response) => {
 router.get('/api/user/:email', async (req: Request, res: Response) => {
   await usersController.getUserByEmail(req, res);
 });
+router.get('/api/user/params/:id', async (req: Request, res: Response) => {
+  await usersController.getUserById(req, res);
+});
 
 router.get('/api/products', async (req: Request, res: Response) => {
   await productsController.getAllProducts(req, res);
